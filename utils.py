@@ -26,8 +26,24 @@ def get_encoded_sequence(text, mapping):
 
 
 def read_file(filename):
-    file = open(filename, 'r', encoding='utf-8').read()
-    return file
+    file = open('Telugu\\' + filename, 'r', encoding='utf-8')
+    text = ''
+    avg_utt_lens = []
+    for lines in file.readlines():
+        curr = '0' + lines.split('\t')[1].strip() + '1'
+        text += curr
+        avg_utt_lens.append(len(curr))
+    print("Average number of characters/ utterance: {}".format(np.mean(avg_utt_lens)))
+    return text
+
+
+def load_test_file(filename):
+    file = open('Telugu\\' + filename, 'r', encoding='utf-8')
+    utterances = []
+    for lines in file.readlines():
+        curr = '0' + lines.split('\t')[1].strip() + '1'
+        utterances.append(curr)
+    return utterances
 
 
 def load_data(in_filename):
@@ -40,7 +56,7 @@ def load_data(in_filename):
     reverse_mapping = dict((i, c) for i, c in enumerate(chars))
 
     # save the mappings
-    dump(mapping, open('mapping.pkl', 'wb'))
+    dump(mapping, open('mapping.pkl', 'wb'))                # id 1/2 is for start/end characters
     dump(reverse_mapping, open('reverse_mapping.pkl', 'wb'))
 
     # vocabulary size

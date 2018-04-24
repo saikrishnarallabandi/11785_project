@@ -21,7 +21,9 @@ class CharRNN(nn.Module):
     def forward(self, input, hidden):
         self.batch_size = input.size()[0]
         encoded = self.encoder(input)
-        output, hidden = self.rnn(encoded.view(1, self.batch_size, -1), hidden)
+        encoded = encoded.permute(1, 0, 2)
+        output, hidden = self.rnn(encoded, hidden)
+        output = output.permute(1, 0, 2)
         # no attention added, picking the last lstm output
-        output = self.decoder(output.view(self.batch_size, -1))
+        output = self.decoder(output.contiguous().view(-1, self.hidden_size))
         return output, hidden
