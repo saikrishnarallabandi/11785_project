@@ -35,7 +35,7 @@ def evaluate(my_net, loss_fn, mapping, test):
         target = get_char_tensor(each[1:], mapping)
         hidden = my_net.init_hidden(1)
         prediction, _ = my_net(to_variable(input).unsqueeze(0), hidden)
-        total_loss += len(input) * loss_fn(prediction, to_variable(target).view(-1)).data
+        total_loss += loss_fn(prediction, to_variable(target).view(-1)).data
     return total_loss / len(test)
 
 
@@ -82,13 +82,13 @@ def main(args):
 if __name__ == '__main__':
     # Parse command line arguments
     argparser = argparse.ArgumentParser()
-    argparser.add_argument('--n_epochs', type=int, default=1000)
-    argparser.add_argument('--hidden_size', type=int, default=100)
-    argparser.add_argument('--embedding_dim', type=int, default=75)
-    argparser.add_argument('--n_layers', type=int, default=1)
+    argparser.add_argument('--n_epochs', type=int, default=100)
+    argparser.add_argument('--hidden_size', type=int, default=256)
+    argparser.add_argument('--embedding_dim', type=int, default=128)
+    argparser.add_argument('--n_layers', type=int, default=3)
     argparser.add_argument('--learning_rate', type=float, default=0.01)
     argparser.add_argument('--seq_length', type=int, default=50)
     argparser.add_argument('--batch_size', type=int, default=128)
-    argparser.add_argument('--print_every', type=int, default=100)
+    argparser.add_argument('--print_every', type=int, default=10)
     args = argparser.parse_args()
     main(args)

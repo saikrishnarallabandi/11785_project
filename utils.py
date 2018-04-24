@@ -1,4 +1,5 @@
 import torch
+import io
 import numpy as np
 from pickle import dump
 
@@ -26,7 +27,7 @@ def get_encoded_sequence(text, mapping):
 
 
 def read_file(filename):
-    file = open('Telugu\\' + filename, 'r', encoding='utf-8')
+    file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
     text = ''
     avg_utt_lens = []
     for lines in file.readlines():
@@ -38,7 +39,7 @@ def read_file(filename):
 
 
 def load_test_file(filename):
-    file = open('Telugu\\' + filename, 'r', encoding='utf-8')
+    file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
     utterances = []
     for lines in file.readlines():
         curr = '0' + lines.split('\t')[1].strip() + '1'
