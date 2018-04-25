@@ -1,3 +1,15 @@
+import torch
+import numpy as np
+from torch.utils.data import Dataset
+import torch.utils.data as data_utils
+from collections import defaultdict
+import sys
+import torch.nn as nn
+from torch.autograd import Variable
+import torch.nn.functional as F
+from keras.utils import to_categorical
+
+
 def CreateOnehotVariable( input_x, encoding_dim=63):
     if type(input_x) is Variable:
         input_x = input_x.data 
@@ -110,6 +122,7 @@ class listener(nn.Module):
         lstm_out, self.hidden = self.lstm(x_input, None)
         return lstm_out
 
+'''    
 i2w = {i:w for w,i in words_dict.items()}
 embedding_dim = len(words_dict)
 hidden_dim = 128
@@ -126,3 +139,5 @@ baseline_listener.cuda()
 baseline_speller.cuda()
 objective = nn.CrossEntropyLoss(ignore_index=0)
 objective.cuda()
+'''
+
