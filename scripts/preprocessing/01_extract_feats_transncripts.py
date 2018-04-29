@@ -3,6 +3,9 @@ import numpy as np
 from scipy.io import wavfile as wf
 import os,sys
 
+# python 01_extract_feats_transncripts.py ../data/te-in-Train/Audios_1.1spedup ../data/te-in-Train/transcription.txt ../feats/feats40dim_train_1.1spedup.npy ../feats/transcripts_train_original.npy
+
+
 outfile_feats = sys.argv[3]
 outfile_transcripts = sys.argv[4]
 wav_folder = sys.argv[1]
