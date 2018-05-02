@@ -89,6 +89,6 @@ if __name__ == '__main__':
     argparser.add_argument('--learning_rate', type=float, default=0.01)
     argparser.add_argument('--seq_length', type=int, default=50)
     argparser.add_argument('--batch_size', type=int, default=128)
-    argparser.add_argument('--print_every', type=int, default=10)
+    argparser.add_argument('--print_every', type=int, default=1)
     args = argparser.parse_args()
     main(args)

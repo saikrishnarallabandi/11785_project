@@ -27,11 +27,12 @@ def get_encoded_sequence(text, mapping):
 
 
 def read_file(filename):
-    file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
+    #file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
+    file = np.load('train_transcripts.npy')
     text = ''
     avg_utt_lens = []
-    for lines in file.readlines():
-        curr = '0' + lines.split('\t')[1].strip() + '1'
+    for lines in file:
+        curr = '1' + lines.strip() + '0'
         text += curr
         avg_utt_lens.append(len(curr))
     print("Average number of characters/ utterance: {}".format(np.mean(avg_utt_lens)))
@@ -39,10 +40,11 @@ def read_file(filename):
 
 
 def load_test_file(filename):
-    file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
+    #file = io.open('Telugu/' + filename, 'r', encoding='utf-8')
+    file = np.load('val_transcripts.npy')
     utterances = []
-    for lines in file.readlines():
-        curr = '0' + lines.split('\t')[1].strip() + '1'
+    for lines in file:
+        curr = '1' + lines.strip() + '0'
         utterances.append(curr)
     return utterances
 
@@ -50,11 +52,17 @@ def load_test_file(filename):
 def load_data(in_filename):
     # load
     raw_text = read_file(in_filename)
-
+    charset = np.load('char.npy').item()
+    vocab = list(np.load('vocab.npy'))
+    vocab.append(('1'))
+    vocab[0] = '0'
+    charset['0'] = 0
+    charset['1'] = 66
+    charset.pop('<s>', None)
     # integer encode sequences of characters
-    chars = sorted(list(set(raw_text)))
-    mapping = dict((c, i) for i, c in enumerate(chars))
-    reverse_mapping = dict((i, c) for i, c in enumerate(chars))
+    #chars = sorted(list(set(raw_text)))
+    mapping = dict((c, i) for i, c in enumerate(charset))
+    reverse_mapping = dict((i, c) for i, c in enumerate(vocab))
 
     # save the mappings
     dump(mapping, open('mapping.pkl', 'wb'))                # id 1/2 is for start/end characters
