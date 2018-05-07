@@ -1,3 +1,8 @@
+     
+ class beamsearch_v2:
+    def __init__(self, probs):
+           self.probs = probs
+    def decode(self, probs):        
         sequences = [[list(), 1.0]]
         #print "Shape I got is ", probs.shape
         for row in probs:
@@ -15,3 +20,4 @@
             sequences = ordered[:13]
         #print "I am returning", sequences
         seq, score = sequences[0]
+        return seq
