@@ -21,3 +21,5 @@ for count in counts:
             words.append(word)
     print "Count: ", count,  "Sentences: ", len(selected), " Words, " , len(words), "unique words: ", len(set(words))
 
+# cat log | grep unique | cut -d ' ' -f 14
+   
