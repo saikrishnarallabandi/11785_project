@@ -7,7 +7,8 @@ import sys
 import torch.nn as nn
 from torch.autograd import Variable
 import torch.nn.functional as F
-from keras.utils import to_categorical     
+from keras.utils import to_categorical  
+import math
  
 class beamsearch_v2:
     def __init__(self, probs): 
@@ -26,7 +27,7 @@ class beamsearch_v2:
             for i in range(len(sequences)):
                 seq, score = sequences[i]
                 for j in range(len(row)):
-                    candidate = [seq + [j], score * -log(row[j])]
+                    candidate = [seq + [j], score * -1.0 * math.log(row[j])]
                     all_candidates.append(candidate)
             # order all candidates by score
             ordered = sorted(all_candidates, key=lambda tup:tup[1])
