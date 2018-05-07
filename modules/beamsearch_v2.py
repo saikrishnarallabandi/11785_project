@@ -1,8 +1,22 @@
-     
- class beamsearch_v2:
-    def __init__(self, probs):
-           self.probs = probs
-    def decode(self, probs):        
+import torch
+import numpy as np
+from torch.utils.data import Dataset
+import torch.utils.data as data_utils
+from collections import defaultdict
+import sys
+import torch.nn as nn
+from torch.autograd import Variable
+import torch.nn.functional as F
+from keras.utils import to_categorical     
+ 
+class beamsearch_v2:
+    def __init__(self, probs): 
+           # Probs is a tensor
+           #self.probs = probs
+           self.probs = probs.data.cpu().numpy()     
+          
+    def decode(self):        
+        probs = self.probs
         sequences = [[list(), 1.0]]
         #print "Shape I got is ", probs.shape
         for row in probs:
